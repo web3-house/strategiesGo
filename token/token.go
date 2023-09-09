@@ -27,16 +27,19 @@ func NewToken(address string, decimals float64) *Token {
 }
 
 func (t *Token) Format(value *big.Int) *big.Float {
-	return new(big.Float).Quo(new(big.Float).SetInt(value), new(big.Float).SetFloat64(t.decimals))
+	if t.decimals != 0 {
+		return new(big.Float).Quo(new(big.Float).SetInt(value), new(big.Float).SetFloat64(t.decimals))
+	}
+	return new(big.Float).SetInt(value)
 }
 
-func (t *Token) Balance(ctx context.Context, client *ethclient.Client, address common.Address, blockNumber *big.Int) (chan *big.Int, chan error) {
+func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name string, address common.Address, blockNumber *big.Int) (chan *big.Int, chan error) {
 	balanceChan := make(chan *big.Int)
 	errChan := make(chan error)
 
 	go func() {
 		// Create a new instance of the contract
-		contractAbi, err := abi.JSON(strings.NewReader(abiUtils.BalanceOf))
+		contractAbi, err := abi.JSON(strings.NewReader(abiUtils.GetABI(name)))
 		if err != nil {
 			log.Println("Failed to parse contract ABI")
 			errChan <- err
@@ -44,7 +47,7 @@ func (t *Token) Balance(ctx context.Context, client *ethclient.Client, address c
 		}
 
 		// Call the balanceOf function
-		callData, err := contractAbi.Pack("balanceOf", address)
+		callData, err := contractAbi.Pack(name, address)
 		if err != nil {
 			log.Println("Failed to pack function call data")
 			errChan <- err
@@ -65,7 +68,7 @@ func (t *Token) Balance(ctx context.Context, client *ethclient.Client, address c
 		}
 
 		// Decode the result
-		balanceResult, err := contractAbi.Unpack("balanceOf", contractResult)
+		balanceResult, err := contractAbi.Unpack(name, contractResult)
 		if err != nil {
 			log.Println("Failed to unpack function result")
 			errChan <- err
