@@ -1,6 +1,6 @@
-package main
+package abi
 
-const BalanceOfABI = `
+const BalanceOf = `
 	[
 		{
 			"constant": true,

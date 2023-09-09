@@ -1,12 +1,9 @@
-package main
+package utils
 
 import (
-	"context"
 	"encoding/json"
 	"io/ioutil"
 	"log"
-
-	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 type Network struct {
@@ -18,18 +15,9 @@ type Network struct {
 	Rpc       []interface{} `json:"rpc"`
 }
 
-type Strategy struct {
-	client   *ethclient.Client
-	ctx      context.Context
-	networks map[string]Network
-}
+var networks = map[string]Network{}
 
-func NewStrategy(network string) *Strategy {
-	ctx := context.Background()
-	client, err := ethclient.DialContext(ctx, url)
-	if err != nil {
-		log.Printf("Error creating client for network %s, %s", network, err)
-	}
+func init() {
 	data, err := ioutil.ReadFile("networks.json")
 	if err != nil {
 		log.Printf("Error while loading networks.json %s", err)
@@ -41,9 +29,13 @@ func NewStrategy(network string) *Strategy {
 	if err != nil {
 		log.Printf("Error while unmarshal networks.json %s", err)
 	}
-	return &Strategy{
-		client:   client,
-		ctx:      ctx,
-		networks: networksJSON,
+	networks = networksJSON
+}
+
+func GetNetwork(key string) Network {
+	network, ok := networks[key]
+	if ok {
+		return network
 	}
+	return Network{}
 }
