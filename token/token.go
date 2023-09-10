@@ -66,6 +66,13 @@ func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name, abi
 			return
 		}
 
+		// Check if the result is empty
+		if len(contractResult) == 0 {
+			log.Println("Contract result is empty")
+			errChan <- errors.New("Contract result is empty")
+			return
+		}
+
 		// Decode the result
 		balanceResult, err := contractAbi.Unpack(name, contractResult)
 		if err != nil {

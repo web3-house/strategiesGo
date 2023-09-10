@@ -9,14 +9,15 @@ import (
 )
 
 const (
-	ERC20_BALANCE_OF = "erc20-balance-of"
-	WHITELIST        = "whitelist"
-	TICKET           = "ticket"
-	ERC_721          = "erc721"
-	ETH_BALANCE      = "eth-balance"
-	ETH_WITH_BALANCE = "eth-with-balance"
-	CONTRACT_CALL    = "contract-call"
-	MULTICHAIN       = "multichain"
+	ERC20_BALANCE_OF    = "erc20-balance-of"
+	WHITELIST           = "whitelist"
+	TICKET              = "ticket"
+	ERC_721             = "erc721"
+	ETH_BALANCE         = "eth-balance"
+	ETH_WITH_BALANCE    = "eth-with-balance"
+	CONTRACT_CALL       = "contract-call"
+	MULTICHAIN          = "multichain"
+	ERC_1155_BALANCE_OF = "erc1155-balance-of"
 )
 
 type Strategy struct {
@@ -57,6 +58,8 @@ func (s *Strategy) Score(clients *utils.Clients, address string) *big.Float {
 		return ERC20BalanceOf(clients.Ctx, address, s.Params, client, nil)
 	case ERC_721:
 		return ERC721(clients.Ctx, address, s.Params, client, nil)
+	case ERC_1155_BALANCE_OF:
+		return ERC1155BalanceOf(clients.Ctx, address, s.Params, client, nil)
 	case ETH_BALANCE:
 		return EthBalance(clients.Ctx, address, map[string]interface{}{
 			"address": utils.GetNetwork(s.Network).Multicall,
