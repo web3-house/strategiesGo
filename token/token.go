@@ -7,7 +7,6 @@ import (
 	"math/big"
 	"strings"
 
-	abiUtils "github.com/This-Is-Prince/strategiesGo/utils/abi"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
@@ -33,13 +32,13 @@ func (t *Token) Format(value *big.Int) *big.Float {
 	return new(big.Float).SetInt(value)
 }
 
-func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name string, address common.Address, blockNumber *big.Int) (chan *big.Int, chan error) {
+func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name, abiStr string, args []interface{}, blockNumber *big.Int) (chan *big.Int, chan error) {
 	balanceChan := make(chan *big.Int)
 	errChan := make(chan error)
 
 	go func() {
 		// Create a new instance of the contract
-		contractAbi, err := abi.JSON(strings.NewReader(abiUtils.GetABI(name)))
+		contractAbi, err := abi.JSON(strings.NewReader(abiStr))
 		if err != nil {
 			log.Println("Failed to parse contract ABI")
 			errChan <- err
@@ -47,7 +46,7 @@ func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name stri
 		}
 
 		// Call the balanceOf function
-		callData, err := contractAbi.Pack(name, address)
+		callData, err := contractAbi.Pack(name, args...)
 		if err != nil {
 			log.Println("Failed to pack function call data")
 			errChan <- err

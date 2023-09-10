@@ -22,7 +22,8 @@ func ERC721(ctx context.Context, address string, params map[string]interface{}, 
 		return nil
 	}
 	token := token.NewToken(tokenAddress, 0)
-	balanceChan, errChan := token.Balance(ctx, client, abiUtils.BALANCE_OF, common.HexToAddress(address), blockNumber)
+	abiName := abiUtils.BALANCE_OF
+	balanceChan, errChan := token.Balance(ctx, client, abiName, abiUtils.GetABI(abiName), []interface{}{common.HexToAddress(address)}, blockNumber)
 
 	select {
 	case balance := <-balanceChan:

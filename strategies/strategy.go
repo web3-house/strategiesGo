@@ -15,6 +15,7 @@ const (
 	ERC_721          = "erc721"
 	ETH_BALANCE      = "eth-balance"
 	ETH_WITH_BALANCE = "eth-with-balance"
+	CONTRACT_CALL    = "contract-call"
 )
 
 type Strategy struct {
@@ -56,6 +57,8 @@ func (s *Strategy) Score(clients *utils.Clients, address string) *big.Float {
 	case ETH_WITH_BALANCE:
 		s.Params["address"] = utils.GetNetwork(s.Network).Multicall
 		return EthWithBalance(clients.Ctx, address, s.Params, client, nil)
+	case CONTRACT_CALL:
+		return ContractCall(clients.Ctx, address, s.Params, client, nil)
 	}
 	return nil
 }

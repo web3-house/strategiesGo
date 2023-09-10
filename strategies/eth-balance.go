@@ -23,7 +23,8 @@ func EthBalance(ctx context.Context, address string, params map[string]interface
 	}
 
 	token := token.NewToken(tokenAddress, math.Pow10(18))
-	balanceChan, errChan := token.Balance(ctx, client, abiUtils.GET_ETH_BALANCE, common.HexToAddress(address), blockNumber)
+	abiName := abiUtils.GET_ETH_BALANCE
+	balanceChan, errChan := token.Balance(ctx, client, abiName, abiUtils.GetABI(abiName), []interface{}{common.HexToAddress(address)}, blockNumber)
 
 	select {
 	case balance := <-balanceChan:
