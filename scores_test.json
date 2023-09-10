@@ -193,6 +193,14 @@
               "address": "0xE18a32192ED95b0FE9D70D19e5025f103475d7BA",
               "tokenId": "0x8000000000000000000000000000000200000000000000000000000000000000"
             }
+          },
+          {
+            "name": "ens-domain-owned",
+            "network": "5",
+            "params": {
+              "symbol": "ENS",
+              "domain": "thisisprince.eth"
+            }
           }
         ]
     },
@@ -207,6 +215,7 @@
         "12.2",
         "12.2",
         "24.4",
-        null
+        null,
+        "0"
     ]
 }

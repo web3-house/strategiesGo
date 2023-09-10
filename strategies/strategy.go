@@ -19,6 +19,7 @@ const (
 	CONTRACT_CALL       = "contract-call"
 	MULTICHAIN          = "multichain"
 	ERC_1155_BALANCE_OF = "erc1155-balance-of"
+	ENS_DOMAIN_OWNED    = "ens-domain-owned"
 )
 
 type Strategy struct {
@@ -34,6 +35,9 @@ func (s *Strategy) Score(clients *utils.Clients, address string) *big.Float {
 		return Whitelist(clients.Ctx, address, s.Params)
 	case TICKET:
 		return Ticket(clients.Ctx, address, s.Params)
+	case ENS_DOMAIN_OWNED:
+		s.Params["network"] = s.Network
+		return ENSDomainOwned(clients.Ctx, address, s.Params, nil)
 	}
 
 	// These strategy require clients
