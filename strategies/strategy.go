@@ -17,6 +17,7 @@ const (
 	ERC_721                 = "erc721"
 	ERC_721_WITH_MULTIPLIER = "erc721-with-multiplier"
 	ERC_721_ENUMERABLE      = "erc721-enumerable"
+	ERC_721_WITH_TOKENID    = "erc721-with-tokenid"
 
 	ETH_BALANCE         = "eth-balance"
 	ETH_WITH_BALANCE    = "eth-with-balance"
@@ -74,6 +75,8 @@ func (s *Strategy) Score(clients *utils.Clients, address string) *big.Float {
 		return ERC721WithMultiplier(clients.Ctx, address, s.Params, client, nil)
 	case ERC_721_ENUMERABLE:
 		return ERC721Enumerable(clients.Ctx, address, s.Params, client, nil)
+	case ERC_721_WITH_TOKENID:
+		return ERC721WithTokenId(clients.Ctx, address, s.Params, client, nil)
 
 	case ERC_1155_BALANCE_OF:
 		return ERC1155BalanceOf(clients.Ctx, address, s.Params, client, nil)

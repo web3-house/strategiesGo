@@ -93,3 +93,65 @@ func (t *Token) Balance(ctx context.Context, client *ethclient.Client, name, abi
 
 	return balanceChan, errChan
 }
+
+func (t *Token) OwnerOf(ctx context.Context, client *ethclient.Client, name, abiStr string, args []interface{}, blockNumber *big.Int) (chan common.Address, chan error) {
+	ownerChan := make(chan common.Address)
+	errChan := make(chan error)
+
+	go func() {
+		// Create a new instance of the contract
+		contractAbi, err := abi.JSON(strings.NewReader(abiStr))
+		if err != nil {
+			log.Println("Failed to parse contract ABI")
+			errChan <- err
+			return
+		}
+
+		// Call the balanceOf function
+		callData, err := contractAbi.Pack(name, args...)
+		if err != nil {
+			log.Println("Failed to pack function call data")
+			errChan <- err
+			return
+		}
+
+		msg := ethereum.CallMsg{
+			To:   &t.address,
+			Data: callData,
+		}
+
+		// Call the contract function
+		contractResult, err := client.CallContract(ctx, msg, blockNumber)
+		if err != nil {
+			log.Println("Failed to call contract function")
+			errChan <- err
+			return
+		}
+
+		// Check if the result is empty
+		if len(contractResult) == 0 {
+			log.Println("Contract result is empty")
+			errChan <- errors.New("Contract result is empty")
+			return
+		}
+
+		// Decode the result
+		ownerResult, err := contractAbi.Unpack(name, contractResult)
+		if err != nil {
+			log.Println("Failed to unpack function result")
+			errChan <- err
+			return
+		}
+
+		if len(ownerResult) > 0 {
+			owner, ok := ownerResult[0].(common.Address)
+			if ok {
+				ownerChan <- owner
+				return
+			}
+		}
+		errChan <- errors.New("Owner is not found")
+	}()
+
+	return ownerChan, errChan
+}

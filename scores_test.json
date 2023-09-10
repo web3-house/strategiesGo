@@ -219,6 +219,18 @@
               "symbol": "ENS",
               "domain": "thisisprince.eth"
             }
+          },
+          {
+            "name": "erc721-with-tokenid",
+            "network": "1",
+            "params": {
+              "symbol": "TID",
+              "address": "0x22C1f6050E56d2876009903609a2cC3fEf83B415",
+              "tokenIds": [
+                "613607",
+                "613237"
+              ]
+            }
           }
         ]
     },
@@ -236,6 +248,7 @@
         "12.2",
         "24.4",
         null,
+        "0",
         "0"
     ]
 }

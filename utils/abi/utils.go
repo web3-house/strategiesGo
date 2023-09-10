@@ -8,6 +8,8 @@ func GetABI(name string) string {
 		return GetEthBalance
 	case TOKEN_ID:
 		return TokenId
+	case OWNER_OF:
+		return OwnerOf
 	}
 	return ""
 }
@@ -18,6 +20,8 @@ func GetFuncName(name string) string {
 		return "balanceOf"
 	case GET_ETH_BALANCE:
 		return "getEthBalance"
+	case OWNER_OF:
+		return "ownerOf"
 	}
 	return ""
 
