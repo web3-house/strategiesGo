@@ -1,17 +1,19 @@
-package api
+package routes
 
 import (
 	"github.com/This-Is-Prince/strategiesGo/utils"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine, clients *utils.Clients) {
-	r.GET("/hello", func(c *gin.Context) {
+func SetupRoutes(clients *utils.Clients) *gin.Engine {
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Hello, World!",
+			"message": "pong",
 		})
 	})
 	r.POST("/scores", func(c *gin.Context) {
 		GetScores(c, clients)
 	})
+	return r
 }

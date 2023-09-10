@@ -1,0 +1,124 @@
+{
+    "input": {
+        "address": "0xc6DDE7CE20DfcCF6A2b8c998B066a3ce48911311",
+        "strategies": [
+          {
+            "name": "whitelist",
+            "network": "1",
+            "params": {
+              "symbol": "VOTE",
+              "addresses": [
+                "0xc6DDE7CE20DfcCF6A2b8c998B066a3ce48911311",
+                "0xFB1a8B02b62aa93326dD2fF8916A703E653990Db",
+                "0x7611B1a3193ab7C542A4B84457603Df7dC7BE9F8"
+              ]
+            }
+          },
+          {
+            "name": "erc20-balance-of",
+            "network": "1287",
+            "params": {
+              "symbol": "UN",
+              "address": "0x0000000000000000000000000000000000000802",
+              "decimals": 18
+            }
+          },
+          {
+            "name": "eth-balance",
+            "network": "1287",
+            "params": {
+              "symbol": "UN"
+            }
+          },
+          {
+            "name": "eth-with-balance",
+            "network": "1287",
+            "params": {
+              "symbol": "UN",
+              "minBalance": 12.2
+            }
+          },
+          {
+            "name": "erc721",
+            "network": "1285",
+            "params": {
+              "symbol": "UN",
+              "address": "0x0000000000000000000000000000000000000802"
+            }
+          },
+          {
+            "name": "ticket",
+            "network": "1287",
+            "params": {
+              "value": 500
+            }
+          },
+          {
+            "name": "contract-call",
+            "network": "1287",
+            "params": {
+              "address": "0x0000000000000000000000000000000000000802",
+              "symbol": "Cake",
+              "decimals": 18,
+              "methodABI": {
+                "inputs": [
+                  {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                  }
+                ],
+                "name": "balanceOf",
+                "outputs": [
+                  {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                  }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+              }
+            }
+          },
+          {
+            "name": "contract-call",
+            "network": "1287",
+            "params": {
+              "address": "0xf09FD6B6FF3f41614b9d6be2166A0D07045A3A97",
+              "symbol": "Cake",
+              "decimals": 18,
+              "methodABI": {
+                      "constant": true,
+                      "inputs": [
+                          {
+                              "name": "addr",
+                              "type": "address"
+                          }
+                      ],
+                      "name": "getEthBalance",
+                      "outputs": [
+                          {
+                              "name": "balance",
+                              "type": "uint256"
+                          }
+                      ],
+                      "payable": false,
+                      "stateMutability": "view",
+                      "type": "function"
+                  }
+            }
+          }
+        ]
+    },
+    "output": [
+        "1",
+        "12.2",
+        "12.2",
+        "1",
+        "2e+18",
+        "500",
+        "12.2",
+        "12.2"
+    ]
+}
