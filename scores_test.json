@@ -108,6 +108,71 @@
                       "type": "function"
                   }
             }
+          },
+          {
+            "name": "multichain",
+            "network": "1287",
+            "params": {
+              "symbol": "MUL",
+              "strategies": [
+                {
+                  "name": "contract-call",
+                  "network": "1287",
+                  "params": {
+                    "address": "0x0000000000000000000000000000000000000802",
+                    "symbol": "Cake",
+                    "decimals": 18,
+                    "methodABI": {
+                      "inputs": [
+                        {
+                          "internalType": "address",
+                          "name": "account",
+                          "type": "address"
+                        }
+                      ],
+                      "name": "balanceOf",
+                      "outputs": [
+                        {
+                          "internalType": "uint256",
+                          "name": "",
+                          "type": "uint256"
+                        }
+                      ],
+                      "stateMutability": "view",
+                      "type": "function"
+                    }
+                  }
+                },
+                {
+                  "name": "contract-call",
+                  "network": "1287",
+                  "params": {
+                    "address": "0xf09FD6B6FF3f41614b9d6be2166A0D07045A3A97",
+                    "symbol": "Cake",
+                    "decimals": 18,
+                    "methodABI": {
+                            "constant": true,
+                            "inputs": [
+                                {
+                                    "name": "addr",
+                                    "type": "address"
+                                }
+                            ],
+                            "name": "getEthBalance",
+                            "outputs": [
+                                {
+                                    "name": "balance",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "payable": false,
+                            "stateMutability": "view",
+                            "type": "function"
+                        }
+                  }
+                }
+              ]
+            }
           }
         ]
     },
@@ -119,6 +184,7 @@
         "2e+18",
         "500",
         "12.2",
-        "12.2"
+        "12.2",
+        "24.4"
     ]
 }

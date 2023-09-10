@@ -16,6 +16,7 @@ const (
 	ETH_BALANCE      = "eth-balance"
 	ETH_WITH_BALANCE = "eth-with-balance"
 	CONTRACT_CALL    = "contract-call"
+	MULTICHAIN       = "multichain"
 )
 
 type Strategy struct {
@@ -31,6 +32,12 @@ func (s *Strategy) Score(clients *utils.Clients, address string) *big.Float {
 		return Whitelist(clients.Ctx, address, s.Params)
 	case TICKET:
 		return Ticket(clients.Ctx, address, s.Params)
+	}
+
+	// These strategy require clients
+	switch s.Name {
+	case MULTICHAIN:
+		return Multichain(clients.Ctx, address, s.Params, clients, nil)
 	}
 
 	var client *ethclient.Client
