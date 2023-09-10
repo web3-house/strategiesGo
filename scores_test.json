@@ -24,6 +24,16 @@
             }
           },
           {
+            "name": "erc721-with-multiplier",
+            "network": "1287",
+            "params": {
+              "symbol": "UN",
+              "address": "0x0000000000000000000000000000000000000802",
+              "decimals": 18,
+              "multiplier": 20
+            }
+          },
+          {
             "name": "eth-balance",
             "network": "1287",
             "params": {
@@ -207,6 +217,7 @@
     "output": [
         "1",
         "12.2",
+        "2.44e+20",
         "12.2",
         "1",
         "1",
