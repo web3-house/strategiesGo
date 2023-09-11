@@ -12,4 +12,5 @@ ADD build/strategiesGo /app/strategiesGo
 ADD networks.json /app/networks.json
 RUN chmod +x /app/strategiesGo
 
+WORKDIR /app
 CMD /app/strategiesGo
