@@ -9,6 +9,7 @@ RUN update-ca-certificates
 EXPOSE 8080
 
 ADD build/strategiesGo /app/strategiesGo
+ADD networks.json /app/networks.json
 RUN chmod +x /app/strategiesGo
 
 CMD /app/strategiesGo
