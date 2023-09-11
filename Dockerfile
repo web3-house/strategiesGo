@@ -9,6 +9,6 @@ RUN update-ca-certificates
 EXPOSE 8080
 
 ADD build/strategiesGo /app/strategiesGo
-RUN ls -l
+RUN chmod +x /app/strategiesGo
 
 CMD /app/strategiesGo

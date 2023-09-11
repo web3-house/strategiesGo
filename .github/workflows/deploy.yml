@@ -19,7 +19,7 @@ jobs:
           go-version: 1.21.0
 
       - name: Build
-        run: GOARCH=arm64 GOOS=linux go build -mod=mod -o build/ .
+        run: GOARCH=amd64 GOOS=linux go build -mod=mod -o build/ .
 
       - name: Build docker image
         run: docker build -t thisisprince/web3-house-strategies:latest .
@@ -32,17 +32,3 @@ jobs:
 
       - name: Push image
         run: docker push thisisprince/web3-house-strategies:latest
-
-      - name: SSH into Digital Ocean Droplet
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DROPLET_HOST }}
-          username: ${{ secrets.DROPLET_USERNAME }}
-          password: ${{ secrets.DROPLET_PASSWORD }}
-          script: |
-            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-            docker stop strategiesGo || true
-            docker rm strategiesGo || true
-            docker rmi thisisprince/web3-house-strategies || true
-            docker pull thisisprince/web3-house-strategies:latest
-            docker run -d --name strategiesGo -p 8080:8080 thisisprince/web3-house-strategies:latest
