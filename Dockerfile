@@ -10,6 +10,7 @@ EXPOSE 8080
 
 ADD build/strategiesGo /app/strategiesGo
 ADD networks.json /app/networks.json
+ADD strategies.json /app/strategies.json
 RUN chmod +x /app/strategiesGo
 
 WORKDIR /app
