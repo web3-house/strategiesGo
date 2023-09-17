@@ -29,8 +29,8 @@ func SetupRoutes(clients *utils.Clients) *gin.Engine {
 	r.GET("/strategies/:strategy_id", func(c *gin.Context) {
 		GetStrategy(c)
 	})
-	r.POST("/scores", func(c *gin.Context) {
-		GetScores(c, clients)
+	r.POST("/vp", func(c *gin.Context) {
+		GetVotingPower(c, clients)
 	})
 	return r
 }

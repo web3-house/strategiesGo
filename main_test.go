@@ -73,7 +73,7 @@ func TestScores(t *testing.T) {
 	}
 
 	// Create an HTTP POST request with the JSON payload
-	req, err := http.NewRequest("POST", ts.URL+"/scores", bytes.NewBuffer(inputJSON))
+	req, err := http.NewRequest("POST", ts.URL+"/vp", bytes.NewBuffer(inputJSON))
 	if err != nil {
 		t.Fatal(err)
 	}
