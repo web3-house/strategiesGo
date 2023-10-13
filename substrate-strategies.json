@@ -1,0 +1,56 @@
+[
+    {
+        "id": "balance-of",
+        "properties": [
+            {
+                "id": "network",
+                "title": "Network",
+                "type": "network-dropdown",
+                "example": "eg. polkadot",
+                "required": true
+            },
+            {
+                "id": "symbol",
+                "title": "Symbol",
+                "type": "string",
+                "example": "e.g. DOT",
+                "required": true,
+                "maxLength": 16
+            },
+            {
+                "id": "decimals",
+                "title": "Decimals",
+                "type": "number",
+                "example": "e.g. 18",
+                "required": true
+            }
+        ]
+    },
+    {
+        "id": "quadratic-balance-of",
+        "properties": [
+            {
+                "id": "network",
+                "title": "Network",
+                "type": "network-dropdown",
+                "example": "eg. polkadot",
+                "required": true
+            },
+            {
+                "id": "symbol",
+                "title": "Symbol",
+                "type": "string",
+                "example": "e.g. DOT",
+                "required": true,
+                "maxLength": 16
+            },
+            {
+                "id": "decimals",
+                "title": "Decimals",
+                "type": "number",
+                "example": "e.g. 18",
+                "required": true
+            }
+        ]
+    }
+]

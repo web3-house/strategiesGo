@@ -11,7 +11,12 @@ import (
 
 func GetStrategy(c *gin.Context) {
 	strategyID := c.Param("strategy_id")
-	data, err := ioutil.ReadFile("strategies.json")
+	isSubstrate := c.Query("substrate")
+	strategiesFileName := "strategies.json"
+	if isSubstrate == "true" {
+		strategiesFileName = "substrate-strategies.json"
+	}
+	data, err := ioutil.ReadFile(strategiesFileName)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("Error %s", err.Error())})
 		return
