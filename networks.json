@@ -472,7 +472,7 @@
       "testnet": true,
       "multicall": "0x3E90A35839ff0Aa32992d33d861f24dC95BBf74d",
       "rpc": [
-        "https://rpc.shibuya.astar.network:8545"
+        "https://evm.shibuya.astar.network"
       ],
       "explorer": {
         "url": "https://blockscout.com/shibuya"
